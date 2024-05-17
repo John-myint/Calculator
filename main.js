@@ -28,6 +28,23 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
 
+    document.addEventListener('keydown', function(event) {
+        const key = event.key;
+
+        if (!isNaN(key) || key === '.') {
+            appendNumber(key);
+        } else if (key === 'Enter' || key === '=') {
+            event.preventDefault(); // Prevent form submission if inside a form
+            calculate();
+        } else if (key === 'Backspace') {
+            deleteNumber();
+        } else if (key === 'Escape') {
+            clear();
+        } else if (['+', '-', '*', '/'].includes(key)) {
+            setOperation(key);
+        }
+    });
+
     function appendNumber(number) {
         if (currentInput === '0' || shouldResetDisplay) {
             currentInput = number;
